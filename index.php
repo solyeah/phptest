@@ -5,17 +5,42 @@
     <title></title>
   </head>
   <body>
-    <h1>WEB</h1>
+    <h1><a href="index.php">WEB</a></h1>
     <ol>
-      <li><a href="index.php?id=HTML">HTML</a></li>
+      <?php
+        $list = scandir('./data');
+        $i=0;
+        while($i<count($list)){
+          if($list[$i]!='.'){
+            if($list[$i]!='..'){
+              echo "<li><a href=\"index.php?id=$list[$i]\">$list[$i]</a></li>\n";
+            }
+          }
+          $i++;
+        }
+      ?>
+      <!-- <li><a href="index.php?id=HTML">HTML</a></li>
       <li><a href="index.php?id=CSS">CSS</a></li>
-      <li><a href="index.php?id=JavaScript">JavaScript</a></li>
+      <li><a href="index.php?id=JavaScript">JavaScript</a></li> -->
     </ol>
     <h2>
       <?php
-      echo $_GET['id'];
-       ?>
+      if(isset($_GET['id'])){
+        echo $_GET['id'];
+
+      }else{
+        echo "Welcome!";
+      }
+      ?>
     </h2>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+    <?php
+    if(isset($_GET['id'])){
+      echo file_get_contents("data/".$_GET['id']);
+    }else{
+      echo "Hello, PHP";
+    }
+    ?>
+
   </body>
 </html>
